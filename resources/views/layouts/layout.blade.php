@@ -254,11 +254,16 @@ desired effect
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li class="header">LINKS</li>
+         <li class="header">LINKS</li>
         <!-- Optionally, you can add icons to the links -->
-       <li class="active"><a href=""><i class="fa fa-link"></i> <span>Pagina Principal</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-        <li class="treeview">
+       <li class="nav-item {{ active('/') }}">
+        <a href="{{ url('/')}}"><i class="fa fa-link"></i> <span>Pagina Principal</span></a></li>
+        <li class="nav-item {{ active('products') }}">
+          <a href="{{ url('products')}}"><i class="fa fa-link"></i> <span>Listar</span></a></li>
+        <li class="nav-item {{ active('create') }}">
+          <a href="{{ url('create')}}"><i class="fa fa-link"></i> <span>Registrar</span></a></li>
+        
+       <!--  <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -268,7 +273,7 @@ desired effect
             <li><a href="#">Link in level 2</a></li>
             <li><a href="#">Link in level 2</a></li>
           </ul>
-        </li>
+        </li> -->
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -291,7 +296,7 @@ desired effect
 
     <!-- Main content -->
     <section class="content">
-       <div style="width: 80%;height: 75%">
+       <div style="width: 125%;height: 250%">
      @yield('content')
       </div>
     </section>

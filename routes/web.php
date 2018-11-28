@@ -17,6 +17,15 @@
 
 Route::resource('products', 'ProductController');
 
+
+Route::get('create', function () {
+    return view('products.create');
+});
+
+Route::get('descargar-productos', 'ProductController@pdf')->name('products.pdf');
+
+
+
 Route::get('admin', function(){
 
 	return view('admin.dashboard');

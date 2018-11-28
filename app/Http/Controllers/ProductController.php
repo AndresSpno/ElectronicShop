@@ -5,6 +5,8 @@ namespace Tienda\Http\Controllers;
 use Illuminate\Http\Request;
 use Tienda\Product;
 use Tienda\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade as PDF;
 
 
 class ProductController extends Controller
@@ -28,7 +30,25 @@ class ProductController extends Controller
 		$product->short = $request->short;
 		$product->body = $request->body;
 
-		$product->save();
+		if ($request-> hasFile('image')) {
+            $product->image = $request-> file('image')-> store('public');
+
+            
+        }
+
+        $product->save();
+
+
+
+		// //IMAGE
+		// if ($request->file('file')) {
+		// 	$path = Storage::disk('public')->put('image', $request->file('file'));
+		// 	$product->fill(['file' => asset($path)])->save();
+		// }
+
+		//TAGS
+
+		// $product->tags()->attach($request->get('tags'));
 
 		return redirect()->route('products.index')
 						->with('info', 'El producto fue guardado correctamente');
@@ -49,7 +69,20 @@ class ProductController extends Controller
 		$product->short = $request->short;
 		$product->body = $request->body;
 
-		$product->save();
+		if ($request-> hasFile('image')) {
+        $product->image = $request-> file('image')-> store('public');
+        }
+        $product->save();
+
+		//IMAGE
+		// if ($request->file('file')) {
+		// 	$path = Storage::disk('public')->put('image', $request->file('file'));
+		// 	$product->fill(['file' => asset($path)])->save();
+		// }
+
+		//TAGS
+
+		// $product->tags()->sync($request->get('tags'));
 
 		return redirect()->route('products.index')
 						->with('info', 'El producto fue actualizado correctamente');
@@ -61,6 +94,16 @@ class ProductController extends Controller
 		$product = Product::find($id);
 		return view('products.show', compact('product'));
 	}
+
+	public function pdf()
+    {        
+        
+        $products = Product::all(); 
+
+        $pdf = PDF::loadView('pdf.products', compact('products'));
+
+        return $pdf->download('listado.pdf');
+    }
 
 	public function destroy($id)
 	{

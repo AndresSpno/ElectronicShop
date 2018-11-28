@@ -4,12 +4,12 @@
 	<div class="col-sm-10">
 		<h2>
 			Nuevo Producto
-			<a href="{{ route('products.index') }}" class="btn btn-default pull-right">Listado</a>
+			<a href="{{ route('products.index') }}" class="btn btn-primary pull-right">Listado</a>
 		</h2>
 		
 		@include('products.fragment.error')
 
-		{!! Form::open(['route' => 'products.store']) !!}
+		{!! Form::open(['route' => 'products.store', 'files' => true]) !!}
 
 			@include('products.fragment.form')
 
